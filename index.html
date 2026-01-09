@@ -1,17 +1,110 @@
-<div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f4; padding: 20px; color: #333;">
-    <div style="max-width: 850px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profi eBay-Template Generator</title>
+    <style>
+        /* Modernes UI Styling */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eef2f5; display: flex; flex-direction: column; height: 100vh; margin: 0; color: #333; }
+        header { background: #0053a0; color: white; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .main-container { display: flex; flex: 1; overflow: hidden; }
         
+        /* Linke Seite: Formular */
+        .editor-panel { width: 35%; padding: 25px; border-right: 1px solid #cfd8dc; overflow-y: auto; background: white; }
+        h3 { margin-top: 0; color: #0053a0; border-bottom: 2px solid #e53238; padding-bottom: 8px; }
+        .input-group { margin-bottom: 18px; }
+        label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; color: #555; }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        input:focus, textarea:focus { border-color: #0053a0; outline: none; box-shadow: 0 0 5px rgba(0,83,160,0.2); }
+        
+        /* Rechte Seite: Vorschau */
+        .preview-panel { width: 65%; padding: 25px; background: #cbd5e0; overflow-y: auto; display: flex; flex-direction: column; }
+        .preview-content { background: #f4f4f4; border-radius: 8px; padding: 10px; flex-grow: 1; box-shadow: inset 0 2px 10px rgba(0,0,0,0.1); }
+
+        /* Code Bereich */
+        .code-section { margin-top: 20px; }
+        .code-output { background: #263238; color: #cfd8dc; padding: 15px; height: 120px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px; border-radius: 6px; white-space: pre-wrap; border: 1px solid #111; }
+        .copy-btn { background: #28a745; color: white; border: none; padding: 12px 25px; cursor: pointer; font-weight: bold; margin-top: 12px; border-radius: 6px; width: 100%; transition: background 0.3s; }
+        .copy-btn:hover { background: #218838; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="margin:0; font-size: 22px;">eBay Privatverkauf Template-Generator</h1>
+</header>
+
+<div class="main-container">
+    <div class="editor-panel">
+        <h3>1. Artikel-Details</h3>
+        
+        <div class="input-group">
+            <label>Titel des Artikels</label>
+            <input type="text" id="inputTitle" value="Apple iPhone 15 Pro - 256GB" oninput="updatePreview()">
+        </div>
+
+        <div class="input-group">
+            <label>Zustand</label>
+            <select id="inputCondition" onchange="updatePreview()">
+                <option value="Neu & OVP">Neu & OVP</option>
+                <option value="Sehr gut / Gebraucht" selected>Sehr gut / Gebraucht</option>
+                <option value="Gebrauchsspuren vorhanden">Gebrauchsspuren vorhanden</option>
+                <option value="Defekt / Für Bastler">Defekt / Für Bastler</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Bild-URL (z.B. von einem Bilder-Hoster)</label>
+            <input type="text" id="inputImage" placeholder="https://link-zu-deinem-bild.jpg" oninput="updatePreview()">
+        </div>
+
+        <div class="input-group">
+            <label>Beschreibungstext</label>
+            <textarea id="inputDesc" rows="10" oninput="updatePreview()">Verkaufe hier mein geliebtes Gerät. Es wurde immer pfleglich behandelt und weist kaum Gebrauchsspuren auf. Technisch funktioniert alles einwandfrei.</textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Versandinformationen</label>
+            <input type="text" id="inputShipping" value="Versicherter DHL Versand (5,49 €)" oninput="updatePreview()">
+        </div>
+    </div>
+
+    <div class="preview-panel">
+        <h3>2. Live-Vorschau</h3>
+        <div id="previewArea" class="preview-content">
+            </div>
+        
+        <div class="code-section">
+            <h3>3. Dein Code für eBay</h3>
+            <div id="codeArea" class="code-output"></div>
+            <button class="copy-btn" onclick="copyCode()">HTML-Code kopieren</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updatePreview() {
+        // Werte aus den Feldern holen
+        const title = document.getElementById('inputTitle').value || 'Dein Produkttitel';
+        const condition = document.getElementById('inputCondition').value;
+        const img = document.getElementById('inputImage').value || 'https://via.placeholder.com/600x400?text=Dein+Produktbild+hier';
+        const desc = document.getElementById('inputDesc').value || 'Hier steht deine Beschreibung...';
+        const shipping = document.getElementById('inputShipping').value || 'Versandinfo hier eintragen';
+
+        // Das universelle Privatverkäufer-Template
+        const template = `
+<div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f4; padding: 20px; color: #333;">
+    <div style="max-width: 850px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #ddd;">
         <div style="background: linear-gradient(135deg, #0053a0 0%, #003566 100%); color: white; padding: 30px; text-align: center;">
-            <h1 style="margin: 0; font-size: 28px; letter-spacing: -0.5px;">${title}</h1>
+            <h1 style="margin: 0; font-size: 28px; color: white;">${title}</h1>
             <div style="margin-top: 10px; display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 14px;">
-                Privatverkauf aus tierfreiem Nichtraucherhaushalt
+                Privatverkauf aus gepflegtem Haushalt
             </div>
         </div>
-
         <div style="padding: 20px; text-align: center; background: #fff;">
-            <img src="${img}" alt="Produktbild" style="max-width: 100%; max-height: 500px; border-radius: 8px; object-fit: contain;">
+            <img src="${img}" style="max-width: 100%; max-height: 400px; border-radius: 8px;">
         </div>
-
         <div style="display: flex; flex-wrap: wrap; background: #f9f9f9; padding: 20px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
             <div style="flex: 1; min-width: 200px; padding: 10px;">
                 <span style="color: #666; font-size: 12px; text-transform: uppercase; font-weight: bold;">Zustand</span><br>
@@ -22,38 +115,33 @@
                 <strong style="font-size: 18px;">${shipping}</strong>
             </div>
         </div>
-
         <div style="padding: 30px;">
-            <h2 style="color: #0053a0; font-size: 20px; border-left: 4px solid #e53238; padding-left: 15px; margin-bottom: 20px;">Produktdetails & Beschreibung</h2>
+            <h2 style="color: #0053a0; font-size: 20px; border-left: 4px solid #e53238; padding-left: 15px; margin-bottom: 20px;">Beschreibung</h2>
             <div style="line-height: 1.6; font-size: 16px; color: #444;">
                 ${desc.replace(/\n/g, '<br>')}
             </div>
-
-            <div style="margin-top: 30px; background: #fff9e6; padding: 20px; border-radius: 8px; border: 1px dashed #ffd966;">
-                <h3 style="margin-top: 0; font-size: 16px; color: #856404;">Warum ich diesen Artikel verkaufe:</h3>
-                <p style="margin-bottom: 0; font-style: italic;">"Ich habe den Artikel vor kurzem durch ein neueres Modell ersetzt und möchte, dass er nun in gute Hände kommt."</p>
-            </div>
         </div>
-
-        <div style="padding: 0 30px 30px 30px;">
-            <h2 style="color: #0053a0; font-size: 20px; border-left: 4px solid #e53238; padding-left: 15px; margin-bottom: 20px;">Lieferumfang</h2>
-            <ul style="list-style: none; padding: 0;">
-                <li style="padding: 8px 0; border-bottom: 1px solid #eee; display: flex; align-items: center;">
-                    <span style="color: green; margin-right: 10px;">✔</span> 1x ${title}
-                </li>
-                <li style="padding: 8px 0; border-bottom: 1px solid #eee; display: flex; align-items: center;">
-                    <span style="color: green; margin-right: 10px;">✔</span> Originalzubehör (wie abgebildet)
-                </li>
-            </ul>
-        </div>
-
         <div style="background: #f4f4f4; padding: 25px; font-size: 13px; color: #666; border-top: 1px solid #eee;">
-            <strong style="display: block; margin-bottom: 10px; color: #333;">Rechtliche Hinweise für diesen Privatverkauf:</strong>
-            Der Verkauf erfolgt unter Ausschluss jeglicher Sachmängelhaftung. Die Haftung auf Schadenersatz wegen Verletzungen von Gesundheit, Körper oder Leben und grob fahrlässiger und/oder vorsätzlicher Verletzungen meiner Pflichten als Verkäufer bleibt davon unberührt. Keine Rücknahme, keine Garantie meinerseits.
+            <strong style="display: block; margin-bottom: 10px; color: #333;">Rechtlicher Hinweis:</strong>
+            Der Verkauf erfolgt unter Ausschluss jeglicher Sachmängelhaftung. Die Haftung auf Schadenersatz wegen Verletzungen von Gesundheit, Körper oder Leben und grob fahrlässiger und/oder vorsätzlicher Verletzungen meiner Pflichten als Verkäufer bleibt davon unberührt.
         </div>
     </div>
-    
-    <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #999;">
-        Erstellt mit dem Profi-Template-Generator
-    </div>
-</div>
+</div>`;
+
+        // In Vorschau und Code-Feld schreiben
+        document.getElementById('previewArea').innerHTML = template;
+        document.getElementById('codeArea').innerText = template;
+    }
+
+    function copyCode() {
+        const code = document.getElementById('codeArea').innerText;
+        navigator.clipboard.writeText(code);
+        alert("Kopiert! Jetzt bei eBay unter 'HTML' einfügen.");
+    }
+
+    // Beim Laden der Seite einmal ausführen
+    window.onload = updatePreview;
+</script>
+
+</body>
+</html>
