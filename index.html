@@ -1,13 +1,59 @@
-<div class="input-group">
-    <label>Artikel-Zustand</label>
-    <select id="inputCondition" onchange="updatePreview()">
-        <option value="Neu & OVP">Neu & OVP</option>
-        <option value="Sehr gut / Gebraucht">Sehr gut / Gebraucht</option>
-        <option value="Defekt / Für Bastler">Defekt / Für Bastler</option>
-    </select>
-</div>
+<div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f4; padding: 20px; color: #333;">
+    <div style="max-width: 850px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        
+        <div style="background: linear-gradient(135deg, #0053a0 0%, #003566 100%); color: white; padding: 30px; text-align: center;">
+            <h1 style="margin: 0; font-size: 28px; letter-spacing: -0.5px;">${title}</h1>
+            <div style="margin-top: 10px; display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 14px;">
+                Privatverkauf aus tierfreiem Nichtraucherhaushalt
+            </div>
+        </div>
 
-<div class="input-group">
-    <label>Privatverkauf-Klausel anzeigen?</label>
-    <input type="checkbox" id="legalCheck" checked onchange="updatePreview()"> Ja, Haftungsausschluss einfügen
+        <div style="padding: 20px; text-align: center; background: #fff;">
+            <img src="${img}" alt="Produktbild" style="max-width: 100%; max-height: 500px; border-radius: 8px; object-fit: contain;">
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; background: #f9f9f9; padding: 20px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
+            <div style="flex: 1; min-width: 200px; padding: 10px;">
+                <span style="color: #666; font-size: 12px; text-transform: uppercase; font-weight: bold;">Zustand</span><br>
+                <strong style="font-size: 18px; color: #e53238;">${condition}</strong>
+            </div>
+            <div style="flex: 1; min-width: 200px; padding: 10px;">
+                <span style="color: #666; font-size: 12px; text-transform: uppercase; font-weight: bold;">Versand</span><br>
+                <strong style="font-size: 18px;">${shipping}</strong>
+            </div>
+        </div>
+
+        <div style="padding: 30px;">
+            <h2 style="color: #0053a0; font-size: 20px; border-left: 4px solid #e53238; padding-left: 15px; margin-bottom: 20px;">Produktdetails & Beschreibung</h2>
+            <div style="line-height: 1.6; font-size: 16px; color: #444;">
+                ${desc.replace(/\n/g, '<br>')}
+            </div>
+
+            <div style="margin-top: 30px; background: #fff9e6; padding: 20px; border-radius: 8px; border: 1px dashed #ffd966;">
+                <h3 style="margin-top: 0; font-size: 16px; color: #856404;">Warum ich diesen Artikel verkaufe:</h3>
+                <p style="margin-bottom: 0; font-style: italic;">"Ich habe den Artikel vor kurzem durch ein neueres Modell ersetzt und möchte, dass er nun in gute Hände kommt."</p>
+            </div>
+        </div>
+
+        <div style="padding: 0 30px 30px 30px;">
+            <h2 style="color: #0053a0; font-size: 20px; border-left: 4px solid #e53238; padding-left: 15px; margin-bottom: 20px;">Lieferumfang</h2>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee; display: flex; align-items: center;">
+                    <span style="color: green; margin-right: 10px;">✔</span> 1x ${title}
+                </li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee; display: flex; align-items: center;">
+                    <span style="color: green; margin-right: 10px;">✔</span> Originalzubehör (wie abgebildet)
+                </li>
+            </ul>
+        </div>
+
+        <div style="background: #f4f4f4; padding: 25px; font-size: 13px; color: #666; border-top: 1px solid #eee;">
+            <strong style="display: block; margin-bottom: 10px; color: #333;">Rechtliche Hinweise für diesen Privatverkauf:</strong>
+            Der Verkauf erfolgt unter Ausschluss jeglicher Sachmängelhaftung. Die Haftung auf Schadenersatz wegen Verletzungen von Gesundheit, Körper oder Leben und grob fahrlässiger und/oder vorsätzlicher Verletzungen meiner Pflichten als Verkäufer bleibt davon unberührt. Keine Rücknahme, keine Garantie meinerseits.
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #999;">
+        Erstellt mit dem Profi-Template-Generator
+    </div>
 </div>
