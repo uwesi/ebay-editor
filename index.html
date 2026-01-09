@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBay Template Editor 2026</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; flex-direction: column; height: 100vh; margin: 0; }
+        header { background: #0053a0; color: white; padding: 1rem; text-align: center; }
+        
+        .main-container { display: flex; flex: 1; overflow: hidden; }
+        
+        /* Linke Seite: Eingabe */
+        .editor-panel { width: 40%; padding: 20px; border-right: 1px solid #ccc; overflow-y: auto; background: white; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        
+        /* Rechte Seite: Vorschau */
+        .preview-panel { width: 60%; padding: 20px; background: #eee; overflow-y: auto; }
+        .preview-content { background: white; border: 1px solid #ddd; min-height: 400px; padding: 20px; }
+
+        /* Code Ausgabe Bereich */
+        .code-output { background: #333; color: #fff; padding: 20px; height: 150px; overflow-y: auto; font-family: monospace; white-space: pre-wrap; }
+        .copy-btn { background: #e53238; color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Mein eBay-Template Editor</h1>
+</header>
+
+<div class="main-container">
+    <div class="editor-panel">
+        <h3>1. Artikeldaten eingeben</h3>
+        <div class="input-group">
+            <label>Produkt-Titel</label>
+            <input type="text" id="inputTitle" placeholder="z.B. Apple iPhone 15 Pro - 256GB" oninput="updatePreview()">
+        </div>
+        <div class="input-group">
+            <label>Bild-URL</label>
+            <input type="text" id="inputImage" placeholder="https://beispiel.de/bild.jpg" oninput="updatePreview()">
+        </div>
+        <div class="input-group">
+            <label>Beschreibung</label>
+            <textarea id="inputDesc" rows="8" placeholder="Beschreibe dein Produkt..." oninput="updatePreview()"></textarea>
+        </div>
+        <div class="input-group">
+            <label>Versandkosten</label>
+            <input type="text" id="inputShipping" placeholder="Kostenloser Versand" oninput="updatePreview()">
+        </div>
+    </div>
+
+    <div class="preview-panel">
+        <h3>2. Live-Vorschau (Smartphone-optimiert)</h3>
+        <div id="previewArea" class="preview-content">
+            </div>
+        
+        <h3>3. HTML-Code für eBay kopieren</h3>
+        <div id="codeArea" class="code-output"></div>
+        <button class="copy-btn" onclick="copyCode()">Code in Zwischenablage kopieren</button>
+    </div>
+</div>
+
+<script>
+    function updatePreview() {
+        const title = document.getElementById('inputTitle').value || 'Dein Produktname';
+        const img = document.getElementById('inputImage').value || 'https://via.placeholder.com/300x200?text=Produktbild';
+        const desc = document.getElementById('inputDesc').value || 'Hier erscheint deine Beschreibung...';
+        const shipping = document.getElementById('inputShipping').value || 'Standardversand';
+
+        // Das eigentliche eBay-Template als String
+        // WICHTIG: Nur Inline-Styles oder Style-Blocks verwenden, kein externes JS!
+        const template = `
+<div style="font-family: Arial, sans-serif; max-width: 800px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+    <div style="background: #0053a0; color: white; padding: 20px; text-align: center;">
+        <h1 style="margin: 0; font-size: 24px;">${title}</h1>
+    </div>
+    <div style="padding: 20px; text-align: center;">
+        <img src="${img}" style="max-width: 100%; height: auto; border-radius: 4px;">
+    </div>
+    <div style="padding: 20px; line-height: 1.6;">
+        <h2 style="color: #0053a0; border-bottom: 2px solid #0053a0;">Beschreibung</h2>
+        <p>${desc.replace(/\n/g, '<br>')}</p>
+        <div style="background: #f9f9f9; padding: 15px; border-left: 5px solid #e53238; margin-top: 20px;">
+            <strong>Versandinfo:</strong> ${shipping}
+        </div>
+    </div>
+</div>`;
+
+        // Vorschau aktualisieren
+        document.getElementById('previewArea').innerHTML = template;
+        // Code-Textarea aktualisieren
+        document.getElementById('codeArea').innerText = template;
+    }
+
+    function copyCode() {
+        const code = document.getElementById('codeArea').innerText;
+        navigator.clipboard.writeText(code);
+        alert("Code kopiert! Du kannst ihn jetzt in das HTML-Feld bei eBay einfügen.");
+    }
+
+    // Initialer Aufruf
+    updatePreview();
+</script>
+
+</body>
+</html>
