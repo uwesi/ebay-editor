@@ -3,44 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eBay Template Designer 2026</title>
+    <title>eBay Privat-Template Designer & Guide</title>
     <style>
-        /* EDITOR UI - MOBILE FIRST */
+        /* EDITOR UI */
         body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
-        header { background: #232f3e; color: white; padding: 15px; text-align: center; font-weight: bold; }
+        header { background: #232f3e; color: white; padding: 20px; text-align: center; font-weight: bold; font-size: 1.5rem; }
         
-        .main-container { display: flex; flex-direction: row; flex: 1; overflow: hidden; }
+        .main-container { display: flex; flex-direction: row; flex: 1; min-height: 600px; }
         
-        /* Formular-Bereich */
-        .editor-panel { width: 35%; padding: 20px; border-right: 1px solid #ddd; overflow-y: auto; background: white; }
-        .input-group { margin-bottom: 12px; }
+        /* Eingabe */
+        .editor-panel { width: 35%; padding: 25px; border-right: 1px solid #ddd; background: white; overflow-y: auto; }
+        .input-group { margin-bottom: 15px; }
         label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 13px; color: #444; }
-        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
         
-        /* Vorschau-Bereich */
-        .preview-panel { width: 65%; padding: 20px; background: #dfe4ea; overflow-y: auto; }
-        .preview-content { background: white; padding: 5px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        /* Vorschau */
+        .preview-panel { width: 65%; padding: 25px; background: #dfe4ea; overflow-y: auto; }
+        .preview-content { background: white; padding: 5px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .code-output { background: #2c3e50; color: #ecf0f1; padding: 15px; height: 120px; overflow-y: auto; font-family: monospace; font-size: 11px; margin-top: 20px; border-radius: 6px; white-space: pre-wrap; }
+        .copy-btn { background: #febd69; color: #111; border: none; padding: 15px; cursor: pointer; font-weight: bold; width: 100%; border-radius: 6px; margin-top: 10px; font-size: 1.1rem; }
 
-        .code-output { background: #2c3e50; color: #ecf0f1; padding: 15px; height: 100px; overflow-y: auto; font-family: monospace; font-size: 11px; margin-top: 15px; border-radius: 4px; white-space: pre-wrap; }
-        .copy-btn { background: #febd69; color: #111; border: none; padding: 15px; cursor: pointer; font-weight: bold; width: 100%; border-radius: 4px; margin-top: 10px; font-size: 16px; }
+        /* GUIDE SECTION UNTEN */
+        .guide-section { background: white; padding: 40px 20px; border-top: 3px solid #febd69; }
+        .guide-container { max-width: 900px; margin: 0 auto; line-height: 1.7; }
+        .guide-card { border: 1px solid #e1e4e8; border-radius: 10px; padding: 25px; margin-bottom: 20px; background: #fffcf5; }
+        .guide-card h3 { margin-top: 0; color: #232f3e; border-bottom: 2px solid #febd69; padding-bottom: 10px; }
+        .step-num { background: #232f3e; color: white; border-radius: 50%; width: 25px; height: 25px; display: inline-block; text-align: center; line-height: 25px; margin-right: 10px; font-size: 14px; }
+        .warning-box { background: #fff3f3; border-left: 5px solid #d9534f; padding: 20px; margin-bottom: 25px; border-radius: 4px; color: #333; }
 
-        /* RESPONSIVE ANPASSUNG FÜR DEN EDITOR SELBST */
-        @media (max-width: 800px) {
-            .main-container { flex-direction: column; overflow: visible; }
-            .editor-panel { width: 100%; border-right: none; height: auto; }
-            .preview-panel { width: 100%; height: auto; }
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .main-container { flex-direction: column; }
+            .editor-panel, .preview-panel { width: 100%; border-right: none; height: auto; }
         }
     </style>
 </head>
 <body>
 
-<header>Anzeigen-Designer für Privatverkäufer</header>
+<header>eBay Privat-Template Designer 2026</header>
 
 <div class="main-container">
     <div class="editor-panel">
+        <h3>1. Anzeigendaten</h3>
         <div class="input-group">
             <label>Produktname</label>
-            <input type="text" id="inTitle" value="Marken-Fahrradhelm wie neu" oninput="update()">
+            <input type="text" id="inTitle" value="High-End Kopfhörer - Fast wie neu" oninput="update()">
         </div>
         <div class="input-group">
             <label>Zustand</label>
@@ -48,20 +55,20 @@
         </div>
         <div class="input-group">
             <label>Beschreibung</label>
-            <textarea id="inDesc" rows="4" oninput="update()">Nur zweimal getragen, unfallfrei und in Originalverpackung.</textarea>
+            <textarea id="inDesc" rows="5" oninput="update()">Verkaufe hier meinen treuen Begleiter. Das Gerät funktioniert tadellos und wurde immer pfleglich behandelt.</textarea>
         </div>
         <div class="input-group">
-            <label>Lieferumfang (jeder Punkt eine Zeile)</label>
-            <textarea id="inCheck" rows="3" oninput="update()">Fahrradhelm&#10;Originalkarton&#10;Ersatz-Polster</textarea>
+            <label>Lieferumfang (ein Punkt pro Zeile)</label>
+            <textarea id="inCheck" rows="4" oninput="update()">Originalverpackung&#10;Ladekabel&#10;Ersatz-Ohrpolster</textarea>
         </div>
         <div class="input-group">
-            <label>Versand (z.B. DHL 5,49€)</label>
-            <input type="text" id="inShip" value="Versicherter Versand (DHL)" oninput="update()">
+            <label>Versand & Zahlung</label>
+            <input type="text" id="inShip" value="DHL Paket versichert (5,49 €)" oninput="update()">
+            <input type="text" id="inPay" value="PayPal, Überweisung, Bar" style="margin-top:5px" oninput="update()">
         </div>
         <div class="input-group">
-            <label>Zahlung & Abholung</label>
-            <input type="text" id="inPay" value="PayPal, Überweisung, Bar" oninput="update()">
-            <input type="text" id="inLoc" value="Hamburg" style="margin-top:5px" oninput="update()">
+            <label>Abholort</label>
+            <input type="text" id="inLoc" value="München" oninput="update()">
         </div>
     </div>
 
@@ -69,6 +76,31 @@
         <div id="previewArea" class="preview-content"></div>
         <div id="codeArea" class="code-output"></div>
         <button class="copy-btn" onclick="copyCode()">HTML-CODE KOPIEREN</button>
+    </div>
+</div>
+
+<div class="guide-section">
+    <div class="guide-container">
+        <h2 style="text-align: center; color: #232f3e;">So bringst du das Design zu eBay</h2>
+        
+        <div class="warning-box">
+            <strong>⚠️ Wichtiger Hinweis für App-Nutzer:</strong><br>
+            Das Einfügen von HTML-Code ist technisch <strong>nur an einem Computer oder Laptop</strong> möglich. Die eBay-Smartphone-App bietet leider kein HTML-Eingabefeld an.
+        </div>
+
+        <div class="guide-card">
+            <h3>💻 Die einfachste Methode (PC/Laptop)</h3>
+            <p><span class="step-num">1</span> Erstelle deine Anzeige auf <strong>ebay.de</strong> am Computer.</p>
+            <p><span class="step-num">2</span> Scrolle zur Beschreibung und klicke oben rechts auf den Reiter <strong>"HTML"</strong>.</p>
+            <p><span class="step-num">3</span> Füge deinen kopierten Code ein und klicke danach wieder auf <strong>"Standard"</strong> zur Kontrolle.</p>
+        </div>
+
+        <div class="guide-card" style="background: #f0f7ff; border-color: #0053a0;">
+            <h3>🔄 Der Profi-Weg: Die Hybrid-Methode</h3>
+            <p>Du nutzt eBay am liebsten am Handy? So klappt es trotzdem:</p>
+            <p><strong>Teil 1 (Handy):</strong> Erstelle die Anzeige in der App, lade deine Fotos hoch und speichere die Anzeige als <strong>Entwurf</strong>.</p>
+            <p><strong>Teil 2 (PC):</strong> Setze dich kurz an einen Computer, öffne den Entwurf auf ebay.de, wechsle in den <strong>HTML-Modus</strong> und füge den Code aus diesem Generator ein. Veröffentlichen – fertig!</p>
+        </div>
     </div>
 </div>
 
@@ -85,49 +117,38 @@
         let checklistHTML = '';
         checklistItems.forEach(item => {
             if(item.trim() !== "") {
-                checklistHTML += `<div style="display:flex; align-items:center; padding:5px 0; border-bottom:1px solid #eee; font-size:15px;"><span style="color:#2e7d32; margin-right:10px;">✓</span> ${item}</div>`;
+                checklistHTML += `<div style="display:flex; align-items:center; padding:5px 0; border-bottom:1px solid #eee; font-size:15px;"><span style="color:#2e7d32; margin-right:10px; font-weight:bold;">✓</span> ${item}</div>`;
             }
         });
 
-        // DAS TEMPLATE - OPTIMIERT FÜR EBAY (Ohne JS, Responsive)
         const template = `
-<div style="font-family: Arial, sans-serif; max-width: 900px; margin: 10px auto; background: #fff; border: 1px solid #ddd; border-radius: 8px; color: #333; line-height: 1.5;">
-    <div style="background: #232f3e; color: #fff; padding: 20px; text-align: center;">
-        <h1 style="margin: 0; font-size: 22px;">${title}</h1>
+<div style="font-family: Arial, sans-serif; max-width: 850px; margin: 10px auto; background: #fff; border: 1px solid #ddd; border-radius: 8px; color: #333; line-height: 1.6;">
+    <div style="background: #232f3e; color: #fff; padding: 25px; text-align: center; border-radius: 8px 8px 0 0;">
+        <h1 style="margin: 0; font-size: 24px;">${title}</h1>
     </div>
-    
-    <div style="background: #37475a; color: #fff; display: flex; justify-content: space-around; padding: 8px; font-size: 12px;">
-        <span>📦 Versand</span><span>🤝 Privat</span><span>⭐ Top</span>
+    <div style="background: #37475a; color: #fff; display: flex; justify-content: space-around; padding: 10px; font-size: 13px;">
+        <span>📦 Schneller Versand</span><span>🤝 Privatverkauf</span><span>⭐ Geprüfte Qualität</span>
     </div>
-
-    <div style="padding: 20px;">
-        <h2 style="color: #232f3e; border-bottom: 2px solid #febd69; padding-bottom: 5px; font-size: 18px;">Beschreibung</h2>
+    <div style="padding: 25px;">
+        <h2 style="color: #232f3e; border-bottom: 2px solid #febd69; padding-bottom: 8px; margin-bottom: 15px; font-size: 19px;">Beschreibung</h2>
         <p style="font-size: 15px;">${desc}</p>
-        
-        <h2 style="color: #232f3e; border-bottom: 2px solid #febd69; padding-bottom: 5px; margin-top: 20px; font-size: 18px;">Lieferumfang</h2>
-        <div style="border: 1px solid #e8f5e9; border-radius: 6px; padding: 10px; background: #fff;">
-            ${checklistHTML}
-        </div>
-
-        <h2 style="color: #232f3e; border-bottom: 2px solid #febd69; padding-bottom: 5px; margin-top: 20px; font-size: 18px;">Details</h2>
-        <div style="font-size: 14px;">
-            <div style="padding: 10px; background: #f9f9f9; border-bottom: 1px solid #eee;"><strong>Zustand:</strong> ${cond}</div>
-            <div style="padding: 10px;"><strong>Ort:</strong> ${loc}</div>
-        </div>
-
-        <div style="margin-top: 20px;">
-            <div style="border: 1px solid #eee; padding: 15px; border-radius: 6px; margin-bottom: 10px;">
-                <strong style="display:block; color:#232f3e; margin-bottom:5px;">🚚 Versand</strong>
-                <span style="font-size: 14px;">${ship}</span>
+        <h2 style="color: #232f3e; border-bottom: 2px solid #febd69; padding-bottom: 8px; margin-top: 25px; font-size: 19px;">Lieferumfang</h2>
+        <div style="border: 1px solid #e8f5e9; border-radius: 6px; padding: 15px; background: #fff;">${checklistHTML}</div>
+        <h2 style="color: #232f3e; border-bottom: 2px solid #febd69; padding-bottom: 8px; margin-top: 25px; font-size: 19px;">Details & Zustand</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background:#f9f9f9;"><td style="padding:10px; border:1px solid #eee; font-weight:bold; width:35%;">Zustand:</td><td style="padding:10px; border:1px solid #eee;">${cond}</td></tr>
+            <tr><td style="padding:10px; border:1px solid #eee; font-weight:bold;">Abholort:</td><td style="padding:10px; border:1px solid #eee;">${loc}</td></tr>
+        </table>
+        <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:20px;">
+            <div style="flex:1; min-width:200px; border:1px solid #eee; padding:15px; border-radius:6px;">
+                <strong style="color:#232f3e;">🚚 Versand:</strong><br><span style="font-size:14px;">${ship}</span>
             </div>
-            <div style="border: 1px solid #eee; padding: 15px; border-radius: 6px;">
-                <strong style="display:block; color:#232f3e; margin-bottom:5px;">💳 Zahlung</strong>
-                <span style="font-size: 14px;">${pay}</span>
+            <div style="flex:1; min-width:200px; border:1px solid #eee; padding:15px; border-radius:6px;">
+                <strong style="color:#232f3e;">💳 Zahlung:</strong><br><span style="font-size:14px;">${pay}</span>
             </div>
         </div>
-
-        <div style="background: #fffcf5; border: 1px solid #f5e8c7; padding: 15px; margin-top: 25px; border-radius: 6px; font-size: 12px; color: #777;">
-            <strong>Privatverkauf:</strong> Der Verkauf erfolgt unter Ausschluss jeglicher Sachmangelhaftung. Keine Rücknahme.
+        <div style="background:#fffcf5; border:1px solid #f5e8c7; padding:15px; margin-top:30px; border-radius:6px; font-size:12px; color:#666;">
+            <strong>Rechtlicher Hinweis:</strong> Der Verkauf erfolgt unter Ausschluss jeglicher Sachmangelhaftung. Keine Rücknahme.
         </div>
     </div>
 </div>`;
